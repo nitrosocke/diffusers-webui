@@ -16,6 +16,8 @@ print(f"Starting Demo...")
 start_time = time.time()
 save_set_txt = False
 vmodel = True
+#set this to "True" to enable xformers if you have them installed
+xformers = False
 
 class Model:
     def __init__(self, name, path="", prefix=""):
@@ -53,17 +55,8 @@ current_save_path = userinfo["save_path"]
 gsettings = ""
 scheduler_set = ""
 
-#current_scheduler= EulerDiscreteScheduler.from_pretrained(current_model.path, subfolder="scheduler", prediction_type="v_prediction")
 current_scheduler= None
 scheduler_set = None
-
-
-# Load model
-#print(f"Loading model {current_model.name}...")
-#pipe = StableDiffusionPipeline.from_pretrained(current_model_path, torch_dtype=torch.float16, scheduler=current_scheduler)
-
-#uncomment the line below to enable xformers
-#pipe.enable_xformers_memory_efficient_attention()
 
 def error_str(error, title="Error"):
     return f"""#### {title}
@@ -121,6 +114,8 @@ def on_scheduler_change(n_scheduler, vmodel):
   global pipe
   pipe = StableDiffusionPipeline.from_pretrained(current_model_path, torch_dtype=torch.float16, scheduler=current_scheduler)
   pipe = pipe.to("cuda")
+  if xformers == True:
+    pipe.enable_xformers_memory_efficient_attention()
 
 def save_path_changed(spath):
   img_save_path = str(spath)
@@ -187,9 +182,6 @@ def txt_to_img(model_path, prompt, neg_prompt, n_images, guidance, steps, width,
     if model_path != current_model_path or last_mode != "txt2img":
         current_model_path = model_path
         on_scheduler_change(scheduler, vmodel)
-        pipe = StableDiffusionPipeline.from_pretrained(current_model_path, torch_dtype=torch.float16, scheduler=current_scheduler)        
-
-        pipe = pipe.to("cuda")
         last_mode = "txt2img"
 
     if scheduler_set != scheduler:
@@ -265,9 +257,9 @@ css = """.finetuned-diffusion-div div{display:inline-flex;align-items:center;gap
 with gr.Blocks(css=css) as demo:
     gr.HTML(
         f"""
-            <div class="diffusers-webui-div">
+            <div class="diffusion-spave-div">
               <div>
-                <h1>Diffusers WebUI</h1>
+                <h1>Diffusion Space</h1>
               </div>
             </div>
         """
@@ -337,10 +329,10 @@ with gr.Blocks(css=css) as demo:
     gr.HTML("""
     <div style="border-top: 1px solid #303030;">
       <br>
-      <p>Made by Nitrosocke.</p>
+      <p>Model by Nitrosocke.</p>
     </div>
     """)
 
-print(f"Started in {time.time() - start_time:.2f} seconds")
+print(f"Space built in {time.time() - start_time:.2f} seconds")
 
 demo.launch()
