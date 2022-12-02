@@ -1,5 +1,6 @@
 # diffusers-webui
 This is a Gradio WebUI working with the Diffusers format of Stable Diffusion
+
 ![Diffusers-WebUI](https://github.com/nitrosocke/diffusers-webui/raw/main/data/images/webui-interface-preview.png)
 
 ## Windows Installation:
@@ -15,12 +16,14 @@ You can set an alternative Python path by editing the `LaunchUI.bat` and add the
 
 ## Loading new models
 The diffusers of you models folder should contain these subfolders and the 'model_index.json' file.
+
 ![Models Folder](https://github.com/nitrosocke/diffusers-webui/raw/main/data/images/models-diffuser-folder.png)
 
 ## Usage:
 To start the webUI run the `LaunchUI.bat` from the directory. You can make a shortcut for it on your Desktop for easier access.
 By default the webUI starts with settings optimised for the 768-v models.
 You can set the model to use, the v-model option and the save path for images in the settings tab.
+
 ![Settings Tab](https://github.com/nitrosocke/diffusers-webui/raw/main/data/images/webui-settings-tab.png)
 
 ## Img2Img
