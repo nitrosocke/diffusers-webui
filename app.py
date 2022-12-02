@@ -265,9 +265,9 @@ css = """.finetuned-diffusion-div div{display:inline-flex;align-items:center;gap
 with gr.Blocks(css=css) as demo:
     gr.HTML(
         f"""
-            <div class="diffusion-spave-div">
+            <div class="diffusers-webui-div">
               <div>
-                <h1>Diffusion Space</h1>
+                <h1>Diffusers WebUI</h1>
               </div>
             </div>
         """
@@ -337,10 +337,10 @@ with gr.Blocks(css=css) as demo:
     gr.HTML("""
     <div style="border-top: 1px solid #303030;">
       <br>
-      <p>Model by Nitrosocke.</p>
+      <p>Made by Nitrosocke.</p>
     </div>
     """)
 
-print(f"Space built in {time.time() - start_time:.2f} seconds")
+print(f"Started in {time.time() - start_time:.2f} seconds")
 
 demo.launch()
